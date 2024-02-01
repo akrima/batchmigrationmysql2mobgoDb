@@ -1,0 +1,33 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/mydatabase
+      auto-index-creation: true
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    packages-to-scan: com.akrima.batchmigrationmysql2mongo.entity.jpa
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:/db/schema.sql
+      data-locations: classpath:/db/data.sql
+  batch:
+    job:
+      enabled: false # to not execute jobs at the start of application
+    initialize-schema: ALWAYS
+    jdbc:
+      initialize-schema: ALWAYS
+
+  logging:
+    level:
+      org.hibernate.SQL: debug
+      org.hibernate.type.descriptor.sql.BasicBinder: trace
+      org.hibernate.tool.hbm2ddl: debug
+      org.springframework.jdbc.core.JdbcTemplate: debug
+      org.springframework.jdbc.datasource.init.ScriptUtils: debug
+      org.springframework.data.mongodb: debug
